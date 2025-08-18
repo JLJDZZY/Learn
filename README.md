@@ -7,4 +7,4 @@
 
 #### [闲的没事干](https://t.me/JLJDZZY_DailyLife)
 
-(![](https://raw.githubusercontent.com/JLJDZZY/Pic/IMG/IMG/bei2.jpg))
+![](https://raw.githubusercontent.com/JLJDZZY/Pic/IMG/IMG/bei2.jpg)
