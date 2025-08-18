@@ -5,6 +5,6 @@
 
 ### 如果发现错误，欢迎指正
 
-#### [闲的没事干](https://t.me/JLJDZZY_DailyLife
+#### [闲的没事干](https://t.me/JLJDZZY_DailyLife)
 
 ![](https://raw.githubusercontent.com/JLJDZZY/Pic/IMG/IMG/compressed-bei2.jpg)"/>)
