@@ -30,6 +30,7 @@ int main() {
 #include <stdlib.h>//mallo和free包含在这个里面
 #include <stdbool.h>//使用布尔型
 #include <stdio.h>
+#include <windows.h>
 
 typedef struct {
     int *data;//指示动态分配数组的指针
@@ -92,7 +93,22 @@ bool ListDelete(SeqList *L,int i,int *e) {//删除L在位序i的元素e
     return true;
 }
 
+//顺序表按位查找
+int GetElem(SeqList L, int i) { //注意前面查找的元素类型为int，则每四个一个单位
+        return L.data[i-1];//使用动态分配，所以输入i为1时，查找动态存储中的第0段
+    }
+
+//顺序表L中查找第一个元素值等于e的元素，并返回位序
+int LocateElem(SeqList L, int e) {
+    for(int i=0;i<L.length;i++)
+        if (L.data[i] == e)//依次判断该元素的值是否和我们给的元素是否相等
+            return i+1;//在存储中，因为从0开始，所以返回的位序应+1
+    return 0;//没有查找到，退出循环
+
+}
+
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
     SeqList L;//声明一个顺序表
     initList(&L);//初始化顺序表
 
@@ -103,13 +119,25 @@ int main() {
     ListInsert(&L,1,1);
     ListInsert(&L,2,2);
     ListInsert(&L,3,3);
-    //顺序表删除一个元素
+    ListInsert(&L,4,4);
+    ListInsert(&L,5,5);
+    ListInsert(&L,6,6);
+    ListInsert(&L,7,7);
+    ListInsert(&L,8,8);
+
+
+    /*//顺序表删除一个元素
     int e=-1;
     if (ListDelete(&L,3,&e))//前面调用Listdelite成功会返回一个true,进而执行if
         //main函数这里通过&传递前面的*e指向的值
         printf("%d\n",e);
     else
         printf("位序i不合法删除失败\n");
+        */
+
+    printf("顺序表位序i的值为%d\n",GetElem(L,2));
+
+    printf("顺序表按值查找的位序为%d\n",LocateElem(L,5));
 
     return 0;
 }
