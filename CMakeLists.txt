@@ -3,7 +3,7 @@ project(hanshu C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(hanshu charge.c
+add_executable(hanshu change.c
         height.c
         priority.c
         if.c
