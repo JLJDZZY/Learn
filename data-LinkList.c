@@ -250,6 +250,7 @@ LinkList create1() {
 }
 
 //头插法建立单链表
+//使用头插法建议可以实现倒置
 LinkList create2() {
     //头插法可以用来实现链表的逆置
     SetConsoleCP(CP_UTF8);
@@ -304,12 +305,14 @@ void freeList(LinkList L) {
 int main() {
 
     SetConsoleOutputCP(CP_UTF8);
-
     printf("========== 链表创建与输出程序 ==========\n");
 
-    LinkList L = create1(); // 创建链表
+    /*LinkList L = create2(); // 创建尾插法链表*/
+    LinkList L = create2(); // 创建头插法链表(输出会倒置)
+
     printList(L); // 输出链表内容
     freeList(L);// 释放链表内存
+
     printf("程序结束，按任意键退出...\n");
     getchar(); // 清除输入缓冲区
     getchar(); // 等待用户按键
