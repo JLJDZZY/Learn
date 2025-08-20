@@ -10,4 +10,5 @@ add_executable(hanshu change.c
         while.c
         data-sequence.c
         data-LinkList.c
+        "for .c"
 )

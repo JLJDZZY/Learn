@@ -22,7 +22,7 @@ int main() {          //循环判断位数
     do {
         a/=10;
         n++;
-    }while (a>0);
+    }while (a>0);//do while相比while执行起来，先执行一遍循环在判断
 
 
     printf("Your input is %d units",n);
