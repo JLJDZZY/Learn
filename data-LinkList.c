@@ -307,7 +307,7 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
     printf("========== 链表创建与输出程序 ==========\n");
 
-    /*LinkList L = create2(); // 创建尾插法链表*/
+    /*LinkList L = create1(); // 创建尾插法链表*/
     LinkList L = create2(); // 创建头插法链表(输出会倒置)
 
     printList(L); // 输出链表内容
