@@ -229,7 +229,7 @@ LNode * LocateElem(LinkList *L,int e) {
 LinkList create1() {
 
     SetConsoleOutputCP(CP_UTF8);
-    int x;
+    int x=0;
     LinkList L=(LinkList)malloc(sizeof(LNode));//创建头结点
     L->next=NULL;//初始化为空链表
     LNode *s,*r=L;
@@ -250,12 +250,12 @@ LinkList create1() {
 }
 
 //头插法建立单链表
-//使用头插法建议可以实现倒置
+//使用头插法建立可以实现倒置
 LinkList create2() {
     //头插法可以用来实现链表的逆置
     SetConsoleCP(CP_UTF8);
     LNode *s;
-    int x;
+    int x=0;
     LinkList L=(LinkList)malloc(sizeof(LNode));
     L->next=NULL;
 
