@@ -12,4 +12,6 @@ add_executable(hanshu change.c
         data-LinkList.c
         "for .c"
         data-DLinkList.c
+        data-SLinkList.c
+        data-SqStack.c
 )

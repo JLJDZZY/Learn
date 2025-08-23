@@ -42,6 +42,15 @@ bool InitList(LinkList *L) {
     return true;
 }
 
+//初始化一个带头结点的循环单链表
+bool InitListCirculate(LinkList *L) {
+    *L=(LNode*)malloc(sizeof(LNode));//创建头结点
+    if(*L==NULL)//如果malloc内存分配失败会返回NULL，
+        return false;//内存不足，返回失败
+    //头结点之后暂时还没有结点
+    (*L)->next = *L;//*的优先级不如->,所以要带()
+    return true;
+}
 //判断一个带头结点的单链表是否为空
 bool empty(LinkList *L) {
     if(*L==NULL)
