@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <windows.h>
+
 
 #define MAXSIZE 20 //定义栈中的最大个数
 
@@ -77,8 +81,6 @@ bool InsertPriorNode(LiStack *p, int e) {
 typedef struct {
     int data[MAXSIZE];
     int front,rear;//队头指 针和队尾
-    int size=0;//队列当前长度
-
 }SqQueue;
 
 
@@ -116,4 +118,153 @@ bool GetFront(SqQueue *Q, int *x) {
 }
 
 //算队列元素
-//(real+MAXSIZE-front)%MMAXSIZE
+//(real+MAXSIZE-front)%MAXSIZE
+
+//通过栈来实现中缀表达式转后缀表达式
+
+#define  MAX_SIZE 20
+// 栈结构
+typedef struct {
+    char data[MAX_SIZE];
+    int top;
+} Stack;
+
+// 初始化栈
+void initStack(Stack *s) {
+    s->top = -1;
+}
+
+// 判断栈是否为空
+int isEmpty(Stack *s) {
+    return s->top == -1;
+}
+
+// 判断栈是否已满
+int isFull(Stack *s) {
+    return s->top == MAX_SIZE - 1;
+}
+
+// 入栈
+void push(Stack *s, char c) {
+    if (isFull(s)) {
+        printf("栈已满，无法入栈\n");
+        return;
+    }
+    s->data[++s->top] = c;
+}
+
+// 出栈
+char pop(Stack *s) {
+    if (isEmpty(s)) {
+        printf("栈为空，无法出栈\n");
+        return '\0';
+    }
+    return s->data[s->top--];
+}
+
+// 获取栈顶元素
+char peek(Stack *s) {
+    if (isEmpty(s)) {
+        return '\0';
+    }
+    return s->data[s->top];
+}
+
+// 判断字符是否为运算符
+int isOperator(char c) {
+    return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
+}
+
+// 获取运算符优先级
+int getPriority(char op) {
+    if (op == '^') return 3;
+    if (op == '*' || op == '/') return 2;
+    if (op == '+' || op == '-') return 1;
+    return 0;
+}
+
+// 中缀表达式转后缀表达式
+void infixToPostfix(char *infix, char *postfix) {
+    Stack s;
+    initStack(&s);
+    int i,j = 0;
+    char c;
+
+    for (i=0;infix[i]!='\0';i++) {
+        c = infix[i];
+
+        // 如果是操作数，直接添加到后缀表达式
+        if (isalnum(c)) {
+            postfix[j++] = c;
+        }
+        // 如果是左括号，压入栈
+        else if (c == '(') {
+            push(&s, c);
+        }
+        // 如果是右括号，弹出栈顶元素直到遇到左括号
+        else if (c == ')') {
+            while (!isEmpty(&s) && peek(&s) != '(') {
+                postfix[j++] = pop(&s);
+            }
+            if (!isEmpty(&s) && peek(&s) != '(') {
+                printf("表达式错误：括号不匹配\n");
+                return;
+            } else {
+                pop(&s); // 弹出左括号
+            }
+        }
+        // 如果是运算符
+        else if (isOperator(c)) {
+            // 处理负号（一元运算符）
+            if (c == '-' && (i == 0 || infix[i-1] == '(' || isOperator(infix[i-1]))) {
+                // 这里可以特殊处理负号，但为了简单起见，我们假设所有操作数都是正数
+                postfix[j++] = '0'; // 用0代替负数的操作数
+                continue;
+            }
+
+            while (!isEmpty(&s) && getPriority(peek(&s)) >= getPriority(c)) {
+                postfix[j++] = pop(&s);
+            }
+            push(&s, c);
+        }
+        // 忽略空格
+        else if (c == ' ') {
+            continue;
+        }
+        // 其他字符视为错误
+        else {
+            printf("错误：无效字符 '%c'\n", c);
+            return;
+        }
+    }
+
+    // 弹出栈中所有剩余运算符
+    while (!isEmpty(&s)) {
+        if (peek(&s) == '(') {
+            printf("表达式错误：括号不匹配\n");
+            return;
+        }
+        postfix[j++] = pop(&s);
+    }
+
+    postfix[j] = '\0'; // 添加字符串结束符
+}
+
+int main() {
+    SetConsoleOutputCP(CP_UTF8);
+
+    char infix[MAX_SIZE], postfix[MAX_SIZE];
+
+    printf("请输入中缀表达式：\n");
+    fgets(infix, MAX_SIZE, stdin);
+
+    // 移除换行符
+    infix[strcspn(infix, "\n")] = '\0';
+
+    infixToPostfix(infix, postfix);
+
+    printf("中缀表达式: %s\n", infix);
+    printf("后缀表达式(先出栈为右操作数): %s\n", postfix);
+
+    return 0;
+}
